@@ -3,7 +3,7 @@
   flex:1; display:flex; flex-direction:column;
   padding:0 10px 20px 10px;
   h1 { margin:15px 0; }
-  .flexbox { flex:1; }
+  // .flexbox { flex:1; }
   .fill { 
     display:flex; flex-direction:column; justify-content:center;
     margin:25px 0; min-height:96px;
