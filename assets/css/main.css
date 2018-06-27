@@ -60,7 +60,8 @@ input[type=text] { color:#a8a8a8; background:transparent; border:0 none; border-
 	display: inline-block;
 	cursor: pointer;
 	border: 1px solid transparent;
-	text-align: center
+  text-align:center;
+  font-size:14px;
 }
 
 .radius {
@@ -106,4 +107,6 @@ input[type=text] { color:#a8a8a8; background:transparent; border:0 none; border-
 .flex-wrap       { flex-wrap:wrap; }
 
 
-#logo   { width:204px; height:82px; }
+#logo   { display:block; margin:0 auto; }
+
+.text-wallet { font-size:10px; }

@@ -2,13 +2,15 @@
 #page-account {
   .base { text-align:right; }
   .panel {
-    margin-top:10px; padding:10px; color:#fff; background-color:#4baafd;
-    h3   { font-weight:bold; }
+    margin-top:10px; padding:15px 10px; font-size:12px; color:#fff; background-color:#4baafd;
+    h3   { margin-bottom:5px; font-weight:bold; font-size:14px; }
     .explain {  }
   }
+  .text-wallet { display:block; width:calc(100vw - 20px - 70px); color:#aaa; overflow:hidden; text-overflow:ellipsis; }
   #userInfo {
+    // #logo { width:100px; height:122px; }
     display:flex; flex-direction:row; padding:10px;
-    .base { flex:1; display:flex; flex-direction:column; justify-content:space-between; }
+    .base { flex:1; display:flex; flex-direction:column; justify-content:space-between; padding:15px 0; }
   }
   #balance { 
     display:flex; flex-direction:row; 
@@ -29,18 +31,18 @@
 </style>
 
 <template>
-  <div id="page-account">
+  <div id="page-account" v-if="userInfo">
     <div id="userInfo">
       <img id="logo" src="~/assets/img/logo.png" alt="">
       <div class="base">
-        <h3 @click.prevent="logout">{{user}}&nbsp;&nbsp;&nbsp;{{lang.account.logout}}</h3>
-        <h4>{{wallet}}</h4>
+        <h3 @click.prevent="logout">{{userInfo.user}}&nbsp;&nbsp;&nbsp;{{lang.account.logout}}</h3>
+        <h4 class="text-wallet">{{userInfo.wallet}}</h4>
       </div>
     </div>
     <div id="balance" class="panel">
       <div class="left">
         <h3>{{lang.balance.title}}</h3>
-        <h2><span>&nbsp;{{lang.balance.value}} VTB</span></h2>
+        <h2><span>&nbsp;{{userInfo.balance}} VTB</span></h2>
       </div>
       <p class="explain">{{lang.balance.explain}}</p>
     </div>
@@ -52,7 +54,7 @@
       <h3>{{lang.award.title}}</h3>
       <p>{{lang.award.explain}}</p>
       <div class="copy">
-        <input id="myRefCode" :value="inviteURL" />
+        <input id="myRefCode" :value="inviteURL" class="text-wallet" />
         <a href="javascript:void(0);" id="copyMyRefCode" class="btn primary" 
           data-clipboard-action="copy" data-clipboard-target="#myRefCode" @touch.prevent @click.prevent
         >{{lang.award.btn}}</a>
@@ -63,6 +65,17 @@
 
 <script>
 export default {
+  fetch({store,redirect,query}) {
+    console.log('______________')
+    console.log( store.state.userInfo )
+    console.log('______________')
+    if ( !store.state.userInfo ) {
+      redirect(`/login?lang=${(query.lang||store.state.lang)}`)
+    }
+  },
+  asyncData({query}) {
+    return { query }
+  },
   head: {
     script: [ {src:'/js/clipboard.min.js', async:false} ]
   },
@@ -76,7 +89,6 @@ export default {
           },
           balance: {
             title:'你的VTB通行证',
-            value:5,
             explain:`参与空投活动，获取价值2VTB通证活动时间：7月1日9时至7月7日24时限时空投价值12万VTB通证`,
           },
           project: {
@@ -90,21 +102,25 @@ export default {
           }
         }
       },
-      user: 'sdfsd@sdfs.com',
-      wallet:'0xlsdkdkfkskfj1lskdjf',
-      inviteURL:'https://sdfsdfsdfsdsk.cosmshjsd.sofn?skfj=123l'
+      inviteURL:''
+      // wallet:'0xlsdkdkfkskfj1lskdjf',
+      // inviteURL:'https://sdfsdfsdfsdsk.cosmshjsd.sofn?skfj=123l'
+      // inviteURL:location.href+'&invite_code=123'
     }
   },
   computed: {
-
     lang() {
       return this.text[this.$store.state.lang];
       // return this.text.zh
     },
+    userInfo() {
+      return this.$store.state.userInfo;
+    }
   },
   methods: {
     logout() {
-      console.log('logout')
+      
+      this.$router.replace('/login?lang='+this.query.lang)
     },
     initCopyEvent() {
       try {
@@ -122,6 +138,7 @@ export default {
   },
   mounted() {
     this.initCopyEvent();
+    this.inviteURL = location.href+'&invite_code='+userInfo.inviteCode
   }
 }
 </script>

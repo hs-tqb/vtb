@@ -13,14 +13,16 @@
       border:0 none; border-radius:3px;
     }
     #captcha {
+      margin-top:4px; min-height:44px;
+      .geetest_holder { width:100%!important; }
       p {
-        margin-top:4px; 
         line-height:40px; color:#7a7a7a;
         background:#eaeaea;
       }
     }
   }
   .btn { margin:15px 0; padding:0; line-height:40px; }
+  p.sign { color:#409EFF; text-decoration:underline; }
 }
 </style>
 
@@ -31,22 +33,29 @@
     <h2>{{lang.intro}}</h2>
     <div class="fill">
       <input type="text" :placeholder="lang.placeholder.user" v-model.trim="user">
-      <input type="text" :placeholder="lang.placeholder.wallet" v-model.trim="wallet">
-      <div>
+      <input type="text" class="text-wallet" :placeholder="lang.placeholder.wallet" v-model.trim="wallet">
+      <!-- <div>
         <div id="captcha">
           <p id="wait" class="show">正在加载验证码......</p>
         </div>
-      </div>
+      </div> -->
     </div>
     <h3>{{lang.award}}</h3>
-    <a href="javascript:void(0);" class="btn primary block">{{lang.btn}}</a>
-    <p>{{lang.notes.login}}</p>
+    <a href="javascript:void(0);" class="btn primary block" @click="doVerify">{{lang.btn}}</a>
+    <p class="sign" @click="login">{{lang.notes.login}}</p>
   </div>
 </template>
 
 <script>
-
+let host = 'http://192.168.1.170:8008'
+let host2 = 'http://localhost:9977'
 export default {
+  asyncData({query}) {
+    return { query }
+  },
+  head: {
+    script:[{src:'/js/gt.js'}]
+  },
   data() {
     return {
       // 语言
@@ -63,7 +72,26 @@ export default {
           award:'登录邀请您的朋友获得2个VTB',
           btn  :'提交',
           notes:{
-            login:'登录用户界面'
+            login:'已经有帐号？去登录',
+          },
+          validate: {
+            captcha:'请完成验证',
+            user:{
+              empty:'手机号/邮箱不能为空',
+              error:'手机号/邮箱格式错误'
+            },
+            wallet: {
+              empty:'钱包地址不能为空',
+              error:'钱包地址错误'
+            },
+            login: {
+              success:'登录成功',
+              failure:'登录失败，请重新验证'
+            },
+            register: {
+              success:'注册成功',
+              failure:'注册失败，请重新验证'
+            }
           }
         }
       },
@@ -84,6 +112,13 @@ export default {
     }
   },
   methods: {
+    login() {
+      this.$router.replace(
+        '/login?lang=' + 
+        (this.query.lang || this.$store.state.lang ) + 
+        (this.query.invite_code? '&invite_code='+this.query.invite_code:'')
+      )
+    },
     checkWallet() {
       if ( !this.wallet ) return;
       $.post('http://bot.valp.io/telegrambot/userAuth', {
@@ -99,63 +134,120 @@ export default {
     },
     initCaptcha() {
       $.ajax({
-        url: "gt/register-click?t=" + (new Date()).getTime(), // 加随机数防止缓存
-        type: "get",
-        dataType: "json",
-        success: function (data) {
-          // 调用 initGeetest 进行初始化
-          // 参数1：配置参数
-          // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它调用相应的接口
-          initGeetest({
-            // 以下 4 个配置参数为必须，不能缺少
-            gt: data.gt,
-            challenge: data.challenge,
-            offline: !data.success, // 表示用户后台检测极验服务器是否宕机
-            new_captcha: data.new_captcha, // 用于宕机时表示是新验证码的宕机
-            product: "popup", // 产品形式，包括：float，popup
-            // width: "300px"
-            // 更多前端配置参数说明请参见：http://docs.geetest.com/install/client/web-front/
-          }, handler);
-        }
+          // url: host2+"/gt/register-click?t=" + (new Date()).getTime(), // 加随机数防止缓存
+          url: host+"/geetest/geeFirst", // 加随机数防止缓存
+          type: "get",
+          dataType: "json",
+          data: { loginName:this.user },
+          success: (data)=>{
+            // 调用 initGeetest 进行初始化
+            // 参数1：配置参数
+            // 参数2：回调，回调的第一个参数验证码对象，之后可以使用它调用相应的接口
+            initGeetest({
+              // 以下 4 个配置参数为必须，不能缺少
+              gt: data.gt,
+              challenge: data.challenge,
+              offline: !data.success, // 表示用户后台检测极验服务器是否宕机
+              new_captcha: data.new_captcha, // 用于宕机时表示是新验证码的宕机
+              timeout: '5000',
+              product: "bind", // 产品形式，包括：float，popup
+              width: "100%"
+              // 更多前端配置参数说明请参见：http://docs.geetest.com/install/client/web-front/
+            // }, handler);
+            }, this.initCaptcha2);
+          }
       });
     },
-    loadCaptcha(obj) {
-      obj.appendTo('#captcha');
-      obj.onReady(function () {
-          $("#wait").hide();
-      });
+    initCaptcha2(obj) {
+      if ( this.initCaptchaFinish ) {
+        return this.doVerify();
+      }
+      this.initCaptchaFinish = true;
       this.captchaObj = obj;
+      this.captchaObj.onSuccess(()=>{
+        let result = this.captchaObj.getValidate();
+        $.ajax({
+          // url: 'http://localhost:9977/'+'gt/validate-click',
+          url: host+'/geetest/geeSecond',
+          type: 'POST',
+          dataType: 'json',
+          data: {
+            loginName: this.user,
+            geetest_challenge: result.geetest_challenge,
+            geetest_validate: result.geetest_validate,
+            geetest_seccode: result.geetest_seccode
+          },
+          success: (data)=>{
+            if (data.status === 'success') {
+              this.doRegister();
+            } else if (data.status === 'fail') {
+              // alert('登录失败，请完成验证');
+              this.$store.commit('showDialog', {text:this.lang.validate.login.failure})
+              this.captchaObj.reset();
+            }
+          }
+        });
+      });
+      // console.log('zzz');
+      setTimeout(()=>{
+        this.captchaObj.verify();
+      }, 100);
+      // console.log('111');
+      // this.doVerify();
     },
     doVerify() {
-      let captchaObj = this.captchaObj;
-      let result = captchaObj.getValidate();
-      if (!result) {
-          return alert('请完成验证');
+      // 如果为空, 或者既不是手机也不是邮箱
+      let error  = '';
+      if ( !this.user ) {
+        error = this.lang.validate.user.empty
+      } else if ( !/^(\+?\d{1,3} *)?\d+(\-\d+)*$/.test(this.user) && 
+      !/^[a-zA-Z0-9\u4e00-\u9fa5]+([\.\_\-]?[a-zA-Z0-9\u4e00-\u9fa5])+@([a-zA-Z0-9]+[\.\-])+[a-zA-Z0-9]+$/.test(this.user) ) {
+        error = this.lang.validate.user.error;
+      } else if ( !this.wallet ) {
+        error = this.lang.validate.wallet.empty;
+      } else if ( !/^0x[0-9a-zA-Z]{40}$/.test(this.wallet) || !parseInt(this.wallet,16) ) {
+        error = this.lang.validate.wallet.error
+      } 
+
+      if ( error ) {
+        return this.$store.commit('showDialog', { text:error }), false;
       }
+
+      if ( this.initCaptchaFinish ) {
+        console.log('111111111111')
+        this.captchaObj.verify();
+      } else {
+        console.log('1231231231')
+        this.initCaptcha();
+      }
+
+    },
+    doRegister() {
       $.ajax({
-        url: 'gt/validate-click',
-        type: 'POST',
-        dataType: 'json',
-        data: {
-          username: this.user,
-          password: this.wallet,
-          geetest_challenge: result.geetest_challenge,
-          geetest_validate: result.geetest_validate,
-          geetest_seccode: result.geetest_seccode
-        },
-        success: function (data) {
-          if (data.status === 'success') {
-            alert('登录成功');
-          } else if (data.status === 'fail') {
-            alert('登录失败，请完成验证');
-            captchaObj.reset();
+        url:host+'/vtb/customer/register',
+        data:{loginName:this.user, account:this.wallet, inviteCode:this.query.invite_code},
+        success:(resp)=>{
+          // 已存在自动登录
+          // if ( resp.state === 0 && resp.message==='Account has already existed' ) {
+          //   return this.$store.commit('showDialog', { text:resp.message })
+          // } else 
+          if ( resp.state !== 1 ) {
+            return this.$store.commit('showDialog', { text:resp.message })
           }
+          let data = resp.data;
+          this.$store.commit('showDialog', { text:this.lang.validate.register.success })
+          this.$store.commit('setUserInfo', { user:this.user, wallet:this.wallet, ...data })
+          this.$router.push('/account?lang='+(this.query.lang||this.$store.state.lang))
+          window.localStorage.setItem('user', this.user)
+          window.localStorage.setItem('wallet', this.wallet)
         }
-      });
-    }
+      })
+    },
   },
   mounted() {
-    // this.$store.commit('showDialog', { text:'123' })
+    // this.initCaptcha();
+    this.user = window.localStorage.getItem('user') || '123@qq.com'
+    this.wallet = window.localStorage.getItem('wallet') || '0x44aef4165A48aA48b35fC81eB63fbf638938B0Fc'
   }
 }
 </script>
