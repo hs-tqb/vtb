@@ -3,9 +3,10 @@
   flex:1; display:flex; flex-direction:column;
   padding:0 10px 20px 10px;
   h1 { margin:15px 0; }
+  .flexbox { flex:1; }
   .fill { 
-    display:flex; flex:1; flex-direction:column; justify-content:center;
-    margin:15px 0; min-height:96px;
+    display:flex; flex-direction:column; justify-content:center;
+    margin:25px 0; min-height:96px;
     input { 
       margin:4px 0; height:40px;
       text-align:inherit;
@@ -40,6 +41,7 @@
         </div>
       </div> -->
     </div>
+    <div class="flexbox"></div>
     <h3>{{lang.award}}</h3>
     <a href="javascript:void(0);" class="btn primary block" @click="doVerify">{{lang.btn}}</a>
     <p class="sign" @click="login">{{lang.notes.login}}</p>

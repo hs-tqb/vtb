@@ -66,9 +66,6 @@
 <script>
 export default {
   fetch({store,redirect,query}) {
-    console.log('______________')
-    console.log( store.state.userInfo )
-    console.log('______________')
     if ( !store.state.userInfo ) {
       redirect(`/login?lang=${(query.lang||store.state.lang)}`)
     }
