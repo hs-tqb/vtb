@@ -136,7 +136,7 @@ export default {
   mounted() {
     this.initCopyEvent();
     this.inviteURL = location.origin +
-    '?lang='+(this.query.lang||this.$store.state.lang) + 
+    '/register?lang='+(this.query.lang||this.$store.state.lang) + 
     '&from='+this.userInfo.inviteCode
   }
 }

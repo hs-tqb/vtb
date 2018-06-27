@@ -45,7 +45,7 @@ export default {
             wallet:'以太坊地址'
           },
           award:'登录邀请您的朋友获得2个VTB',
-          btn  :'提交',
+          btn  :'注册',
           notes:{
             login:'已经有帐号？去登录',
           },
