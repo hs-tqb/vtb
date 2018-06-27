@@ -47,7 +47,8 @@
 </template>
 
 <script>
-let host = 'http://192.168.1.170:8008'
+// let host = 'http://192.168.1.170:8008'
+let host = 'http://47.89.11.105:8091'
 let host2 = 'http://localhost:9977'
 export default {
   asyncData({query}) {
@@ -116,7 +117,7 @@ export default {
       this.$router.replace(
         '/login?lang=' + 
         (this.query.lang || this.$store.state.lang ) + 
-        (this.query.invite_code? '&invite_code='+this.query.invite_code:'')
+        (this.query.from? '&from='+this.query.from:'')
       )
     },
     checkWallet() {
@@ -159,9 +160,6 @@ export default {
       });
     },
     initCaptcha2(obj) {
-      if ( this.initCaptchaFinish ) {
-        return this.doVerify();
-      }
       this.initCaptchaFinish = true;
       this.captchaObj = obj;
       this.captchaObj.onSuccess(()=>{
@@ -188,12 +186,10 @@ export default {
           }
         });
       });
-      // console.log('zzz');
+
       setTimeout(()=>{
         this.captchaObj.verify();
       }, 100);
-      // console.log('111');
-      // this.doVerify();
     },
     doVerify() {
       // 如果为空, 或者既不是手机也不是邮箱
@@ -214,10 +210,8 @@ export default {
       }
 
       if ( this.initCaptchaFinish ) {
-        console.log('111111111111')
         this.captchaObj.verify();
       } else {
-        console.log('1231231231')
         this.initCaptcha();
       }
 
@@ -225,7 +219,7 @@ export default {
     doRegister() {
       $.ajax({
         url:host+'/vtb/customer/register',
-        data:{loginName:this.user, account:this.wallet, inviteCode:this.query.invite_code},
+        data:{loginName:this.user, account:this.wallet, from:this.query.from},
         success:(resp)=>{
           // 已存在自动登录
           // if ( resp.state === 0 && resp.message==='Account has already existed' ) {
@@ -246,8 +240,8 @@ export default {
   },
   mounted() {
     // this.initCaptcha();
-    this.user = window.localStorage.getItem('user') || '123@qq.com'
-    this.wallet = window.localStorage.getItem('wallet') || '0x44aef4165A48aA48b35fC81eB63fbf638938B0Fc'
+    this.user = window.localStorage.getItem('user') || ''
+    this.wallet = window.localStorage.getItem('wallet') || ''
   }
 }
 </script>

@@ -96,8 +96,8 @@ export default {
         }
       },
       // 变量
-      user:'2222@sdf.com',
-      wallet:'0xcf90479b2b6288d979c37111520433317a641460',
+      user:'',
+      wallet:'',
       captchaObj:null,
     }
   },
@@ -116,7 +116,7 @@ export default {
       this.$router.replace(
         '/register?lang=' + 
         (this.query.lang || this.$store.state.lang ) + 
-        (this.query.invite_code? '&invite_code='+this.query.invite_code:'')
+        (this.query.from? '&from='+this.query.from:'')
       )
     },
     checkWallet() {
@@ -159,9 +159,10 @@ export default {
       });
     },
     initCaptcha2(obj) {
+      this.initCaptchaFinish = true;
       this.captchaObj = obj;
       this.captchaObj.onSuccess(()=>{
-        let result = obj.getValidate();
+        let result = this.captchaObj.getValidate();
         $.ajax({
           // url: 'http://localhost:9977/'+'gt/validate-click',
           url: host+'/geetest/geeSecond',
@@ -184,13 +185,14 @@ export default {
           }
         });
       });
+
+      setTimeout(()=>{
+        this.captchaObj.verify();
+      }, 100);
     },
     doVerify() {
-      let captchaObj = this.captchaObj;
-      let error  = '';
-
-      
       // 如果为空, 或者既不是手机也不是邮箱
+      let error  = '';
       if ( !this.user ) {
         error = this.lang.validate.user.empty
       } else if ( !/^(\+?\d{1,3} *)?\d+(\-\d+)*$/.test(this.user) && 
@@ -205,7 +207,13 @@ export default {
       if ( error ) {
         return this.$store.commit('showDialog', { text:error })
       }
-      captchaObj.verify();
+
+      if ( this.initCaptchaFinish ) {
+        this.captchaObj.verify();
+      } else {
+        this.initCaptcha();
+      }
+
     },
     doRegister() {
       $.ajax({
@@ -230,7 +238,6 @@ export default {
     },
   },
   mounted() {
-    this.initCaptcha();
     this.user = window.localStorage.getItem('user') || ''
     this.wallet = window.localStorage.getItem('wallet') || ''
   }

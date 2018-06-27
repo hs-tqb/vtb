@@ -105,7 +105,7 @@ export default {
       inviteURL:''
       // wallet:'0xlsdkdkfkskfj1lskdjf',
       // inviteURL:'https://sdfsdfsdfsdsk.cosmshjsd.sofn?skfj=123l'
-      // inviteURL:location.href+'&invite_code=123'
+      // inviteURL:location.href+'&from=123'
     }
   },
   computed: {
@@ -138,7 +138,9 @@ export default {
   },
   mounted() {
     this.initCopyEvent();
-    this.inviteURL = location.href+'&invite_code='+userInfo.inviteCode
+    this.inviteURL = location.origin +
+    '?lang='+(this.query.lang||this.$store.state.lang) + 
+    '&from='+this.userInfo.inviteCode
   }
 }
 </script>
