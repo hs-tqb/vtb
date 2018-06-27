@@ -107,6 +107,6 @@ input[type=text] { color:#a8a8a8; background:transparent; border:0 none; border-
 .flex-wrap       { flex-wrap:wrap; }
 
 
-#logo   { display:block; margin:0 auto; }
+#logo   { display:block; margin:0 auto; width:70px; height:86px; }
 
 .text-wallet { font-size:10px; }
