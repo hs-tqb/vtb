@@ -160,10 +160,9 @@ export default {
           }
         });
       });
-
-      setTimeout(()=>{
+      this.captchaObj.onReady(()=>{
         this.captchaObj.verify();
-      }, 100);
+      })
     },
     doVerify() {
       // 如果为空, 或者既不是手机也不是邮箱
