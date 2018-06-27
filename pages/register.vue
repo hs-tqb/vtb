@@ -1,6 +1,7 @@
 <style lang="less">
 #page-sign {
-  flex:1; display:flex; flex-direction:column;
+  display:flex; flex-direction:column;
+  height:calc(100%-51px);
   padding:0 10px 20px 10px;
   h1 { margin:15px 0; }
   // .flexbox { flex:1; }
