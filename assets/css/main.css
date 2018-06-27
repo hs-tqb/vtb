@@ -41,7 +41,7 @@ a, input {
 }
 
 .page-container {
-  margin: auto;
+  margin:0 auto;
 	width: 520px;
 	max-width: 95%;
 	box-sizing: border-box;
