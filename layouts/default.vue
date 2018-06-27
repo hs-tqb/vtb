@@ -1,6 +1,6 @@
 <style>
   html, body,#__layout, #__nuxt { height:100%; }
-  #page-root { min-height:100%; }
+  #page-root { height:100%; }
   #topbar { text-align:right; color:#aaa; }
   #topbar a { display:inline-block; }
   #topbar #lang { padding:15px 20px; }
