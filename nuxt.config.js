@@ -19,7 +19,7 @@ module.exports = {
     ],
   },
   css: [
-    { src: '~assets/css/main.css' }
+    { src: '~assets/css/main.less', lang:'less' }
   ],
   /*
   ** Customize the progress bar color

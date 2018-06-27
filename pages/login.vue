@@ -1,32 +1,3 @@
-<style lang="less">
-#page-sign {
-  display:flex; flex-direction:column;
-  height:calc(100%-51px);
-  padding:0 10px 20px 10px;
-  h1 { margin:15px 0; }
-  // .flexbox { flex:1; }
-  .fill { 
-    display:flex; flex-direction:column; justify-content:center;
-    margin:25px 0; min-height:96px;
-    input { 
-      margin:4px 0; height:40px;
-      text-align:inherit;
-      background:#eaeaea;
-      border:0 none; border-radius:3px;
-    }
-    #captcha {
-      margin-top:4px; min-height:44px;
-      .geetest_holder { width:100%!important; }
-      p {
-        line-height:40px; color:#7a7a7a;
-        background:#eaeaea;
-      }
-    }
-  }
-  .btn { margin:15px 0; padding:0; line-height:40px; }
-  p.sign { color:#409EFF; text-decoration:underline; }
-}
-</style>
 
 <template>
   <div id="page-sign" class="page-container text-center">
