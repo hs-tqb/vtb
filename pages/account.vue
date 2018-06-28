@@ -91,12 +91,13 @@ export default {
           },
           project: {
             title:'VTB(Vehicle-to-Everything)',
-            explain:'是面向自动驾驶、5G童心的自治区块链网络。基于区块链技术，可以实现设备数字化，从而使其可以被确权、交易和消费，实现去中心化自主运作。'
+            explain:'是面向自动驾驶、5G通讯的自治区块链网络。基于区块链技术，可以实现设备数字化，从而使其可以被确权、交易和消费，实现去中心化自主运作。'
           },
           award: {
             title:'邀请您的朋友获得2个VTB通证',
-            explain:'将一下链接分享给您的50为朋友，每邀请以为获得2个VTB通证。',
-            btn:'复制'
+            explain:'将以下链接分享给您的50位朋友，每邀请一位获得2个VTB通证。',
+            btn:'复制',
+            success:'复制成功'
           }
         }
       },
@@ -126,7 +127,7 @@ export default {
         clipboard1.on('success', (e)=>{
           // this.copy();
           // console.log('111111111');
-          this.$store.commit('showDialog', {type:'success',text:'复制成功'});
+          this.$store.commit('showDialog', {type:'success',text:this.lang.award.success});
           e.clearSelection();      
         });
       } catch(e) {
