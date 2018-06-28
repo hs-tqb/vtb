@@ -80,7 +80,25 @@ export default {
   data() {
     return {
       text: {
-        en:{},
+        en:{
+          account: {
+            logout:'Log Out',
+          },
+          balance: {
+            title:'My VTB tokens',
+            explain:`Join and share the $120K VTB（30,0000VTB） Air Drop Activity Time:July 1th at 9:00 a.m. to July 7th at 24:00 p.m`,
+          },
+          project: {
+            title:'VTB(Vehicle-to-Everything)',
+            explain:'is a self-governing V2X Blockchain network for Autonomous Driving and 5G Communication. Based on Blockchain technology, VTB has the capacity to digitalize V2X devices, which allows them to be authenticated, traded and consumed, and achieve a decentralized and autonomous operation.'
+          },
+          award: {
+            title:'Invite your friend, earn VTB',
+            explain:'You can refer your friends to earn 2 VTB tokens for each new user that you refer who submits Email/Mobile and ETH address. You can refer up to 50 friends. To invite friends to participate in the VTB airdrop, follow the link below.',
+            btn:'Copy',
+            success:'Copy Successfully!'
+          }
+        },
         zh:{
           account: {
             logout:'退出',

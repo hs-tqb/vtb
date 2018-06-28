@@ -38,6 +38,36 @@ export default {
       // 语言
       text: {
         en  : {
+          slogan:'VTB—Self-governing V2X network based on blockchain',
+          intro:'Receiving five VTB tokens by participating in the VTB airdrop',
+          placeholder:{
+            user:'Email/Mobile',
+            wallet:'ETH address'
+          },
+          award:'Sign in and invite your friend，You will receive another two VTB tokens',
+          btn  :'Submit',
+          notes:{
+            login:'已经有帐号？去登录',
+          },
+          validate: {
+            captcha:'请完成验证',
+            user:{
+              empty:'手机号/邮箱不能为空',
+              error:'手机号/邮箱格式错误'
+            },
+            wallet: {
+              empty:'钱包地址不能为空',
+              error:'钱包地址错误'
+            },
+            login: {
+              success:'登录成功',
+              failure:'登录失败，请重新验证'
+            },
+            register: {
+              success:'注册成功',
+              failure:'注册失败，请重新验证'
+            }
+          }
         },
         zh  : {
           slogan:'基于区块链的自治V2X网络',
@@ -47,7 +77,7 @@ export default {
             wallet:'以太坊地址'
           },
           award:'登录邀请您的朋友获得2个VTB',
-          btn  :'注册',
+          btn  :'提交',
           notes:{
             login:'已经有帐号？去登录',
           },
