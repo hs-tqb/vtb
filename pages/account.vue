@@ -136,8 +136,7 @@ export default {
   },
   methods: {
     logout() {
-      
-      this.$router.replace('/login?lang='+this.query.lang)
+      this.$router.replace('/login?lang='+this.query.lang||this.$store.state.lang)
     },
     initCopyEvent() {
       try {
