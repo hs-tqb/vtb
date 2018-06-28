@@ -67,9 +67,9 @@
 <script>
 export default {
   fetch({store,redirect,query}) {
-    // if ( !store.state.userInfo ) {
-    //   redirect(`/login?lang=${(query.lang||store.state.lang)}`)
-    // }
+    if ( !store.state.userInfo ) {
+      redirect(`/login?lang=${(query.lang||store.state.lang)}`)
+    }
   },
   asyncData({query}) {
     return { query }
@@ -111,9 +111,9 @@ export default {
       return this.text[this.$store.state.lang];
       // return this.text.zh
     },
-    // userInfo() {
-    //   return this.$store.state.userInfo;
-    // }
+    userInfo() {
+      return this.$store.state.userInfo;
+    }
   },
   methods: {
     logout() {
@@ -139,14 +139,14 @@ export default {
       // console.log('z')
     }
   },
-  beforeCreate() {
-    this.userInfo = {
-      balance:2,
-      inviteCode:'sdfkt',
-      user:'xksdlf@qq.com',
-      wallet:'0x44aef4165A48aA48b35fC81eB63fbf638938B0Fc'
-    }
-  },
+  // beforeCreate() {
+  //   this.userInfo = {
+  //     balance:2,
+  //     inviteCode:'sdfkt',
+  //     user:'xksdlf@qq.com',
+  //     wallet:'0x44aef4165A48aA48b35fC81eB63fbf638938B0Fc'
+  //   }
+  // },
   mounted() {
     this.initCopyEvent();
     this.inviteURL = location.origin +
