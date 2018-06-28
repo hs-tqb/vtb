@@ -55,9 +55,9 @@
       <p>{{lang.award.explain}}</p>
       <div class="copy">
         <input id="myRefCode" :value="inviteURL" class="text-wallet" />
-        <a href="javascript:void(0);" id="copyMyRefCode" class="btn primary" 
-          data-clipboard-action="copy" data-clipboard-target="#myRefCode" @click.prevent
-        >{{lang.award.btn}}</a>
+        <button id="copyMyRefCode" class="btn primary" 
+          data-clipboard-action="copy" data-clipboard-target="#myRefCode"
+        >{{lang.award.btn}}</button>
       </div>
     </div> 
   </div>
