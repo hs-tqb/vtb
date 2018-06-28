@@ -4,6 +4,7 @@
     <img id="logo" src="~/assets/img/logo.png" alt="">
     <h1>{{lang.slogan}}</h1>
     <h2>{{lang.intro}}</h2>
+    <div class="gap"></div>
     <div class="fill">
       <input type="text" :placeholder="lang.placeholder.user" v-model.trim="user">
       <input type="text" class="text-wallet" :placeholder="lang.placeholder.wallet" v-model.trim="wallet">
@@ -13,10 +14,11 @@
         </div>
       </div> -->
     </div>
-    <div class="flexbox"></div>
+    <div class="gap"></div>
     <h3>{{lang.award}}</h3>
     <a href="javascript:void(0);" class="btn primary block" @click="doVerify">{{lang.btn}}</a>
     <p class="sign" @click="register">{{lang.notes.login}}</p>
+    <div class="gap"></div>
   </div>
 </template>
 
