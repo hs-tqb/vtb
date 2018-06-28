@@ -54,7 +54,8 @@
       <h3>{{lang.award.title}}</h3>
       <p>{{lang.award.explain}}</p>
       <div class="copy">
-        <input id="myRefCode" :value="inviteURL" class="text-wallet" />
+        <!-- <input id="myRefCode" :value="inviteURL" class="text-wallet" /> -->
+        <p class="text-wallet">{{inviteURL}}</p>
         <button id="copyMyRefCode" class="btn primary" 
           data-clipboard-action="copy" data-clipboard-target="#myRefCode"
         >{{lang.award.btn}}</button>
