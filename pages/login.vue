@@ -47,7 +47,7 @@ export default {
           award:'Login and invite your friend，You will receive another 2 VTB tokens',
           btn  :'Login',
           notes:{
-            login:'Register',
+            login:'Sign up',
           },
           validate: {
             captcha:'Please complete the verification',
