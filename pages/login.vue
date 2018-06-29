@@ -71,12 +71,12 @@ export default {
         },
         zh  : {
           slogan:'基于区块链的自治V2X网络',
-          intro :'参与空头活动领取 5 枚VTB通证',
+          intro :'参与空投活动领取 5 枚VTB通证',
           placeholder:{
             user:'邮箱',
             wallet:'ERC20 钱包地址'
           },
-          award:'登录邀请您的朋友获得2个VTB',
+          award:'登录后再邀请朋友过得 2 VTB',
           btn  :'登录',
           notes:{
             login:'没有帐号？注册一个',
