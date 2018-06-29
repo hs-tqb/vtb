@@ -39,33 +39,33 @@ export default {
       text: {
         en  : {
           slogan:'VTB—Self-governing V2X network based on blockchain',
-          intro:'Receiving five VTB tokens by participating in the VTB airdrop',
+          intro:'Receiving 5 VTB tokens by participating in the VTB airdrop',
           placeholder:{
-            user:'Email/Mobile',
-            wallet:'ETH address'
+            user:'Email',
+            wallet:'ERC20 address'
           },
-          award:'Sign in and invite your friend，You will receive another two VTB tokens',
-          btn  :'Submit',
+          award:'Login and invite your friend，You will receive another 2 VTB tokens',
+          btn  :'Sign up',
           notes:{
-            login:'已经有帐号？去登录',
+            login:'Login',
           },
           validate: {
-            captcha:'请完成验证',
+            captcha:'Please complete the verification',
             user:{
-              empty:'手机号/邮箱不能为空',
-              error:'手机号/邮箱格式错误'
+              empty:'Please input your email',
+              error:'Invalid email'
             },
             wallet: {
-              empty:'钱包地址不能为空',
-              error:'钱包地址错误'
+              empty:'Please input your ERC20 address',
+              error:'Invalid ERC20 address'
             },
             login: {
-              success:'登录成功',
-              failure:'登录失败，请重新验证'
+              success:'Login successfully',
+              failure:'Error and please verify again'
             },
             register: {
-              success:'注册成功',
-              failure:'注册失败，请重新验证'
+              success:'Signed up successfully',
+              failure:'Error and please verify again'
             }
           }
         },
@@ -73,8 +73,8 @@ export default {
           slogan:'基于区块链的自治V2X网络',
           intro :'参与空头活动领取 5 枚VTB通证',
           placeholder:{
-            user:'邮箱/手机号',
-            wallet:'以太坊地址'
+            user:'邮箱',
+            wallet:'ERC20 钱包地址'
           },
           award:'登录邀请您的朋友获得2个VTB',
           btn  :'提交',
@@ -84,8 +84,8 @@ export default {
           validate: {
             captcha:'请完成验证',
             user:{
-              empty:'手机号/邮箱不能为空',
-              error:'手机号/邮箱格式错误'
+              empty:'邮箱不能为空',
+              error:'邮箱格式错误'
             },
             wallet: {
               empty:'钱包地址不能为空',
@@ -201,8 +201,7 @@ export default {
       let error  = '';
       if ( !this.user ) {
         error = this.lang.validate.user.empty
-      } else if ( !/^(\+?\d{1,3} *)?\d+(\-\d+)*$/.test(this.user) && 
-      !/^[a-zA-Z0-9\u4e00-\u9fa5]+([\.\_\-]?[a-zA-Z0-9\u4e00-\u9fa5])+@([a-zA-Z0-9]+[\.\-])+[a-zA-Z0-9]+$/.test(this.user) ) {
+      } else if ( !/^[a-zA-Z0-9\u4e00-\u9fa5]+([\.\_\-]?[a-zA-Z0-9\u4e00-\u9fa5])+@([a-zA-Z0-9]+[\.\-])+[a-zA-Z0-9]+$/.test(this.user) ) {
         error = this.lang.validate.user.error;
       } else if ( !this.wallet ) {
         error = this.lang.validate.wallet.empty;
