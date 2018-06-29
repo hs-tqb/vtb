@@ -120,9 +120,10 @@ export default {
   },
   methods: {
     register() {
+      // return console.log( (this.query.lang || this.$store.state.lang )  )
       this.$router.replace(
         '/register?lang=' + 
-        (this.query.lang || this.$store.state.lang ) + 
+        this.$store.state.lang + 
         (this.query.from? '&from='+this.query.from:'')
       )
     },
@@ -236,7 +237,7 @@ export default {
           let data = resp.data;
           this.$store.commit('showDialog', { text:this.lang.validate.login.success })
           this.$store.commit('setUserInfo', { user:this.user, wallet:this.wallet, ...data })
-          this.$router.push('/account?lang='+(this.query.lang||this.$store.state.lang))
+          this.$router.push('/account?lang='+(this.$store.state.lang))
           window.localStorage.setItem('user', this.user)
           window.localStorage.setItem('wallet', this.wallet)
         }
