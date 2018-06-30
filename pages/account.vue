@@ -86,7 +86,7 @@ export default {
           },
           balance: {
             title:'My VTB tokens',
-            explain:`Join and share the $120K VTB（30,0000VTB） Air Drop Activity Time:July 1th at 9:00 a.m. to July 7th at 24:00 p.m`,
+            explain:`Join and share the $120K USD (30,0000VTB) Air Drop Activity Time:July 1th at 9:00 a.m. to July 7th at 24:00 p.m`,
           },
           project: {
             title:'VTB(Vehicle-to-Everything Blockchain)',
