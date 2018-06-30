@@ -7,11 +7,11 @@
 export default {
   asyncData({query,redirect,store}) {
     let url = '';
-    if ( query.invite_code ) {
-      url = `/register?lang=${(query.lang||store.state.lang)}`
-      + (query.invite_code?`&invite_code=${query.invite_code}`:'');
+    if ( query.from ) {
+      url = `/sign?sign=up&lang=${(query.lang||store.state.lang)}`
+      + (query.from?`&from=${query.from}`:'');
     } else {
-      url = `/login?lang=${(query.lang||store.state.lang)}`
+      url = `/sign?lang=${(query.lang||store.state.lang)}`
     }
 
     redirect( url )

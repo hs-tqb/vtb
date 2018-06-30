@@ -12,16 +12,16 @@
     display:flex; flex-direction:row; padding:10px;
     .base { flex:1; display:flex; flex-direction:column; justify-content:space-between; padding:15px 0; }
   }
-  #balance { 
-    display:flex; flex-direction:row; 
-    .left { 
-      display:flex; flex-direction:column; margin-right:10px; width:350px; white-space:nowrap; 
+  #balance {
+    display:flex; flex-direction:row;
+    .left {
+      display:flex; flex-direction:column; margin-right:10px; width:350px; white-space:nowrap;
       h2 { display:flex; flex:1; align-items:center; justify-items:center; font-size:30px; }
       span {  }
     }
   }
   #award {
-    .copy { 
+    .copy {
       display:flex; flex-direction:row; margin-top:10px;
       input { flex:1; padding-left:10px; color:#666;  }
       // .btn { color:inherit; }
@@ -56,11 +56,11 @@
       <div class="copy">
         <input id="myRefCode" :value="inviteURL" class="text-wallet" />
         <!-- <p class="text-wallet">{{inviteURL}}</p> -->
-        <a id="copyMyRefCode" class="btn primary" 
+        <a id="copyMyRefCode" class="btn primary"
           data-clipboard-action="copy" data-clipboard-target="#myRefCode" @click="preventClick"
         >{{lang.award.btn}}</a>
       </div>
-    </div> 
+    </div>
   </div>
 </template>
 
@@ -68,7 +68,7 @@
 export default {
   fetch({store,redirect,query}) {
     if ( !store.state.userInfo ) {
-      redirect(`/login?lang=${(query.lang||store.state.lang)}`)
+      redirect(`/sign?lang=${(query.lang||store.state.lang)}`)
     }
   },
   asyncData({query}) {
@@ -136,7 +136,7 @@ export default {
   },
   methods: {
     logout() {
-      this.$router.replace('/login?lang='+this.query.lang||this.$store.state.lang)
+      this.$router.replace('/sign?lang='+this.query.lang||this.$store.state.lang)
     },
     initCopyEvent() {
       try {
@@ -145,7 +145,7 @@ export default {
           // this.copy();
           // console.log('111111111');
           this.$store.commit('showDialog', {type:'success',text:this.lang.award.success});
-          e.clearSelection();      
+          e.clearSelection();
         });
       } catch(e) {
         setTimeout(this.initCopyEvent, 300);
@@ -168,7 +168,7 @@ export default {
   mounted() {
     this.initCopyEvent();
     this.inviteURL = location.origin +
-    '/register?lang='+(this.query.lang||this.$store.state.lang) + 
+    '/sign?sign=up&lang='+(this.query.lang||this.$store.state.lang) +
     '&from='+this.userInfo.inviteCode
   }
 }
