@@ -5,8 +5,8 @@
     <h2>{{lang.intro}}</h2>
     <div class="gap"></div>
     <div class="fill">
-      <input type="text" :placeholder="lang.placeholder.user" v-model.trim="user">
-      <input type="text" class="text-wallet" :placeholder="lang.placeholder.wallet" v-model.trim="wallet">
+      <input type="text" spellcheck="false" :placeholder="lang.placeholder.user" v-model.trim="user">
+      <input type="text" spellcheck="false" class="text-wallet" :placeholder="lang.placeholder.wallet" v-model.trim="wallet">
     </div>
     <div class="gap"></div>
     <h3>{{lang.award}}</h3>
