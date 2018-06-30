@@ -88,7 +88,7 @@ export default {
             user:'邮箱',
             wallet:'ERC20 钱包地址'
           },
-          award:'登录后再邀请朋友过得 2 VTB',
+          award:'登录后再邀请朋友获得2枚VTB',
           btn  :{
             register:'提交',
             login:'登录'
@@ -224,16 +224,10 @@ export default {
 
     },
     doSign() {
-      console.log(
-        host + (this.sign=='up'?'/vtb/customer/register':'/vtb/customer/login')
-      )
       $.ajax({
         url:host + (this.sign=='up'?'/vtb/customer/register':'/vtb/customer/login'),
         data:{loginName:this.user, account:this.wallet, from:this.query.from},
         success:(resp)=>{
-          console.log('____________>>>>')
-          console.log( resp.message )
-          console.log('____________<<<<')
           // 已存在自动登录
           if ( resp.state === 0 ) {
             if (this.sign==='up' ) {

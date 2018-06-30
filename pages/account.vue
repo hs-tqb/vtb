@@ -89,7 +89,7 @@ export default {
             explain:`Join and share the $120K VTB（30,0000VTB） Air Drop Activity Time:July 1th at 9:00 a.m. to July 7th at 24:00 p.m`,
           },
           project: {
-            title:'VTB(Vehicle-to-Everything)',
+            title:'VTB(Vehicle-to-Everything Blockchain)',
             explain:'is a self-governing V2X Blockchain network for Autonomous Driving and 5G Communication. Based on Blockchain technology, VTB has the capacity to digitalize V2X devices, which allows them to be authenticated, traded and consumed, and achieve a decentralized and autonomous operation.'
           },
           award: {
@@ -104,12 +104,14 @@ export default {
             logout:'退出',
           },
           balance: {
-            title:'你的VTB通行证',
-            explain:`参与空投活动，获取价值2VTB通证活动时间：7月1日9时至7月7日24时限时空投价值12万VTB通证`,
+            title:'我的VTB通行证',
+            explain:`参与空投活动，获取价值2VTB通证
+            活动时间：7月1日9时至7月7日24时
+            限时空投价值12万VTB通证`,
           },
           project: {
-            title:'VTB(Vehicle-to-Everything)',
-            explain:'是面向自动驾驶、5G通讯的自治区块链网络。基于区块链技术，可以实现设备数字化，从而使其可以被确权、交易和消费，实现去中心化自主运作。'
+            title:'VTB (Vehicle-to-Everything Blockchain)',
+            explain:'是面向自动驾驶、5G通讯的自治区块链网络。基于区块链技术，可以实现V2X (Vehicle-to-Everything) 设备数字化，从而使其可以被确权、交易和消费，实现去中心化自主运作。'
           },
           award: {
             title:'邀请您的朋友获得2个VTB通证',
