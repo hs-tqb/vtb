@@ -105,9 +105,9 @@ export default {
           },
           balance: {
             title:'我的VTB通行证',
-            explain:`参与空投活动，获取价值2VTB通证
+            explain:`参与空投活动，获取价值2美元通证
             活动时间：7月1日9时至7月7日24时
-            限时空投价值12万VTB通证`,
+            限时空投价值12万美元通证`,
           },
           project: {
             title:'VTB (Vehicle-to-Everything Blockchain)',
