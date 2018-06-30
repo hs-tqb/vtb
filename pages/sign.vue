@@ -55,7 +55,7 @@ export default {
           award:'Login and invite your friend，You will receive another 2 VTB tokens',
           btn  : {
             register:'Sign up',
-            login:'Sign up',
+            login:'Login',
           },
           notes:{
             register:'Sign up',
