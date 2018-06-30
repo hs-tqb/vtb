@@ -15,7 +15,8 @@ module.exports = {
     script: [
       // {src:'https://www.googletagmanager.com/gtag/js?id=UA-112778678-1'},
       // {src:'/js/googletagmanager.js'},
-      {src:'/js/jquery.3.3.1.min.js'}
+      {src:'/js/jquery.3.3.1.min.js'},
+      {src:'/js/mtac.js'},
     ],
   },
   css: [
