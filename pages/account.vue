@@ -94,7 +94,7 @@ export default {
           },
           award: {
             title:'Invite your friend, earn VTB',
-            explain:'You can refer your friends to earn 2 VTB tokens for each new user that you refer who submits Email/Mobile and ETH address. You can refer up to 50 friends. To invite friends to participate in the VTB airdrop, follow the link below.',
+            explain:'You can refer your friends to earn 2 VTB tokens for each new user that you refer who submits Email and ETH address. You can refer up to 50 friends. To invite friends to participate in the VTB airdrop, follow the link below.',
             btn:'Copy',
             success:'Copy Successfully!'
           }
@@ -104,14 +104,14 @@ export default {
             logout:'退出',
           },
           balance: {
-            title:'我的VTB通行证',
+            title:'我的VTB通证',
             explain:`参与空投活动，获取价值2美元通证
             活动时间：7月1日9时至7月7日24时
             限时空投价值12万美元通证`,
           },
           project: {
             title:'VTB (Vehicle-to-Everything Blockchain)',
-            explain:'是面向自动驾驶、5G通讯的自治区块链网络。基于区块链技术，可以实现V2X (Vehicle-to-Everything) 设备数字化，从而使其可以被确权、交易和消费，实现去中心化自主运作。'
+            explain:'是面向自动驾驶、5G通讯的自治V2X区块链网络。基于区块链技术，可以实现V2X (Vehicle-to-Everything) 设备数字化，从而使其可以被确权、交易和消费，实现去中心化自主运作。'
           },
           award: {
             title:'邀请您的朋友获得2个VTB通证',
