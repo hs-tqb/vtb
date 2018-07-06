@@ -169,7 +169,7 @@ export default {
             empty:'Please input your phone number',
             error:'Invalid phone number',
             repeat:'The phone number has been used!',
-            release:'Please try again after 60 minutes.'
+            release:'Too much error. Your phone number is locked for 60 min.'
           },
           vfCode: {
             placeholder:'Verify code',
