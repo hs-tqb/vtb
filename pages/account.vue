@@ -169,6 +169,7 @@ export default {
             empty:'Please input your phone number',
             error:'Invalid phone number',
             repeat:'The phone number has been used!',
+            release:'Please try again after 60 minutes.'
           },
           vfCode: {
             placeholder:'Verify code',
@@ -224,6 +225,7 @@ export default {
             empty:'手机号码不能为空',
             error:'手机号格式错误',
             repeat:'手机号已绑定',
+            release:'错误次数超过5次，锁定60分钟'
           },
           vfCode: {
             placeholder:'验证码',
@@ -342,6 +344,8 @@ export default {
                 this.$store.commit('showDialog', {text:this.lang.vfCode.timeLimit})
               } else if ( resp.errorCode == 1030 ) {
                 this.$store.commit('showDialog', {text:this.lang.mobile.repeat})
+              } else if ( resp.errorCode == 1040 ) {
+                this.$store.commit('showDialog', {text:this.lang.mobile.release})
               } else {
                 this.$store.commit('showDialog', {text:resp.message})
               }
