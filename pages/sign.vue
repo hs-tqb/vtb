@@ -9,6 +9,7 @@
       <input type="text" spellcheck="false" class="text-wallet" :placeholder="lang.placeholder.wallet" v-model.trim="wallet">
     </div>
     <div class="gap"></div>
+    <h3 class="vfNotice">{{lang.vfNotice}}</h3>
     <h3>{{lang.award}}</h3>
     <template v-if="sign==='up'||(sign==='in'&&autoLogin)">
       <a href="javascript:void(0);" class="btn primary block" @click="doVerify">
@@ -49,9 +50,10 @@ export default {
           slogan:'VTB—Self-governing V2X network based on blockchain',
           intro:'Receiving 5 VTB tokens by participating in the VTB airdrop',
           placeholder:{
-            user:'Email',
+            user:'Phone Number',
             wallet:'ERC20 address'
           },
+          vfNotice:'sdfsdfsdfsdfsdfsdfsdfsdfsdf',
           award:'Login and invite your friend，You will receive another 2 VTB tokens',
           btn  : {
             register:'Sign up',
@@ -64,8 +66,9 @@ export default {
           validate: {
             captcha:'Please complete the verification',
             user:{
-              empty:'Please input your email',
-              error:'Invalid email'
+              empty:'Please input your phone number/email',
+              // error:'Invalid email'
+              error:'Invalid phone number/email'
             },
             wallet: {
               empty:'Please input your ERC20 address',
@@ -85,9 +88,10 @@ export default {
           slogan:'基于区块链的自治V2X网络',
           intro :'参与空投活动领取 5 枚VTB通证',
           placeholder:{
-            user:'邮箱',
+            user:'电话号码/邮箱',
             wallet:'ERC20 钱包地址'
           },
+          vfNotice:'提币需要接收语音验证码',
           award:'登录后再邀请朋友获得2枚VTB',
           btn  :{
             register:'提交',
@@ -100,8 +104,8 @@ export default {
           validate: {
             captcha:'请完成验证',
             user:{
-              empty:'邮箱不能为空',
-              error:'邮箱格式错误'
+              empty:'手机号码/邮箱不能为空',
+              error:'手机号码/邮箱格式错误'
             },
             wallet: {
               empty:'钱包地址不能为空',
@@ -204,9 +208,14 @@ export default {
       let error  = '';
       if ( !this.user ) {
         error = this.lang.validate.user.empty
-      } else if ( !/^[a-zA-Z0-9\u4e00-\u9fa5]+([\.\_\-]?[a-zA-Z0-9\u4e00-\u9fa5])+@([a-zA-Z0-9]+[\.\-])+[a-zA-Z0-9]+$/.test(this.user) ) {
+      } 
+      // else if ( !/^(\+?\d{1,3} *)?\d+([\- ]\d+)*$/.test(this.user) ) {
+      else if ( 
+        !/^(\+?\d{1,3} *)?\d+([\- ]\d+)*$/.test(this.user) &&
+        !/^[a-zA-Z0-9\u4e00-\u9fa5]+([\.\_\-]?[a-zA-Z0-9\u4e00-\u9fa5])+@([a-zA-Z0-9]+[\.\-])+[a-zA-Z0-9]+$/.test(this.user) ) {
         error = this.lang.validate.user.error;
-      } else if ( !this.wallet ) {
+      } 
+      else if ( !this.wallet ) {
         error = this.lang.validate.wallet.empty;
       } else if ( !/^0x[0-9a-zA-Z]{40}$/.test(this.wallet) || !parseInt(this.wallet,16) ) {
         error = this.lang.validate.wallet.error
