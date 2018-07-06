@@ -53,7 +53,7 @@ export default {
             user:'Phone Number',
             wallet:'ERC20 address'
           },
-          vfNotice:'sdfsdfsdfsdfsdfsdfsdfsdfsdf',
+          vfNotice:'Please verify the voice code to withdraw the VTB',
           award:'Login and invite your friend，You will receive another 2 VTB tokens',
           btn  : {
             register:'Sign up',

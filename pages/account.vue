@@ -182,7 +182,7 @@ export default {
             success:'Thank you for submitting. We will tansfer VTB to your wallet in the next 3 weeks. Please check.',
             failure:'Withdraw failed!'
           },
-          verifyNote:'已使用邮箱注册的朋友，请添加手机号接受语音验证码',
+          verifyNote:'Please input your phone number to receive the voice verify code',
           vfCodeButtonText:'vioce verify code',
           community:{
             title:'Join us',
@@ -190,10 +190,10 @@ export default {
               name:'Telegram',
               link:'https://t.me/VTB_blockchain',
             },{
-              name:'币用',
+              name:'Biyong',
               link:'https://0.plus/VTB_Blockchain',
             },{
-              name:'项目网站',
+              name:'website',
               link:'http://vtb.space'
             }]
           }
@@ -338,9 +338,9 @@ export default {
           },
           success: (resp)=>{
             if ( resp.state === 0 ) {
-              if ( resp.errCode == 1020 ) {
+              if ( resp.errorCode == 1020 ) {
                 this.$store.commit('showDialog', {text:this.lang.vfCode.timeLimit})
-              } else if ( resp.errCode == 1030 ) {
+              } else if ( resp.errorCode == 1030 ) {
                 this.$store.commit('showDialog', {text:this.lang.mobile.repeat})
               } else {
                 this.$store.commit('showDialog', {text:resp.message})
