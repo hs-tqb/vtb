@@ -1,18 +1,26 @@
+<style>
+.roundEnd { display:flex; align-items:center; justify-content:center; height:100px; min-height:100px; font-size:16px; color:#999; background:#efefef; border-radius:5px; }
+
+</style>
+
 <template>
   <div id="page-sign" class="page-container text-center">
     <img id="logo" src="~/assets/img/logo.png" alt="">
     <h1>{{lang.slogan}}</h1>
     <h2>{{lang.intro}}</h2>
     <div class="gap"></div>
-    <div class="fill">
+    <div class="fill" v-if="activityIsUnderway">
       <input type="text" spellcheck="false" :placeholder="lang.placeholder.user" v-model.trim="user">
       <input type="text" spellcheck="false" class="text-wallet" :placeholder="lang.placeholder.wallet" v-model.trim="wallet">
+    </div>
+    <div class="roundEnd" v-else>
+      <span v-html="lang.roundEnd"></span>
     </div>
     <div class="gap"></div>
     <h3 class="vfNotice">{{lang.vfNotice}}</h3>
     <h3>{{lang.award}}</h3>
     <template v-if="sign==='up'||(sign==='in'&&autoLogin)">
-      <a href="javascript:void(0);" class="btn primary block" @click="doVerify">
+      <a href="javascript:void(0);" class="btn primary block" :disabled="!activityIsUnderway" @click="doVerify">
         {{lang.btn.register}}
       </a>
       <p class="sign" @click="login">
@@ -20,7 +28,7 @@
       </p>
     </template>
     <template v-else>
-      <a href="javascript:void(0);" class="btn primary block" @click="doVerify">
+      <a href="javascript:void(0);" class="btn primary block" :disabled="!activityIsUnderway" @click="doVerify">
         {{autoLogin?lang.btn.register:lang.btn.login}}
       </a>
       <p class="sign" @click="register">
@@ -45,10 +53,12 @@ export default {
   data() {
     return {
       // 语言
+      activityIsUnderway:false,
       text: {
         en  : {
           slogan:'VTB—Self-governing V2X network based on blockchain',
           intro:'Receiving 5 VTB tokens by participating in the VTB airdrop',
+          roundEnd:'This round of airdrop has ended.<br>Thank you.',
           placeholder:{
             user:'Phone Number',
             wallet:'ERC20 address'
@@ -87,6 +97,7 @@ export default {
         zh  : {
           slogan:'基于区块链的自治V2X网络',
           intro :'参与空投活动领取 5 枚VTB通证',
+          roundEnd:'本轮空投已经结束，感谢支持！',
           placeholder:{
             user:'电话号码/邮箱',
             wallet:'ERC20 钱包地址'
@@ -204,6 +215,7 @@ export default {
       })
     },
     doVerify() {
+      if ( !this.activityIsUnderway ) return;
       // 如果为空, 或者既不是手机也不是邮箱
       let error  = '';
       if ( !this.user ) {

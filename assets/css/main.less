@@ -56,7 +56,9 @@ input[type=text] { color:#a8a8a8; background:transparent; border:0 none; -webkit
 .btn.primary { color:#fff; background:#00a0e9; }
 .btn.warning { color:#fff; background:#E6A23C; }
 .btn.block   { display:block; margin:0 auto; }
-.btn.disabled { background:#dfdfdf; color:#fff; }
+.btn.disabled,
+.btn:disabled,
+.btn[disabled] { background:#dfdfdf!important; color:#fff!important; }
 
 .btn {
   /* padding: 10px 15px; */
@@ -120,7 +122,7 @@ input[type=text] { color:#a8a8a8; background:transparent; border:0 none; -webkit
 #page-sign {
   display:flex; flex-direction:column;
   height:calc(100%-51px);
-  padding:0 10px 20px 10px;
+  padding:0 10px 0 10px;
   h1 { margin:15px 0; }
   .gap { flex:1; }
   .fill {
@@ -154,6 +156,6 @@ input[type=text] { color:#a8a8a8; background:transparent; border:0 none; -webkit
     }
   }
   .btn { margin:15px 0; padding:0; line-height:40px; }
-  .sign { color:#409EFF; text-decoration:underline; cursor:pointer; }
+  .sign { margin-bottom:15px; color:#409EFF; text-decoration:underline; cursor:pointer; }
   .vfNotice { margin:10px 0; font-weight:bold; }
 }
