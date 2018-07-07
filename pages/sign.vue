@@ -261,7 +261,18 @@ export default {
         success:(resp)=>{
           // 已存在自动登录
           if ( resp.state === 0 ) {
-              return this.$store.commit('showDialog', { text:resp.message })
+            let text = ''
+            let lang = this.query.lang
+
+            if ( lang==='zh' && resp.message === 'Account has already existed' ) {
+              text = '钱包已被注册'
+            } 
+            if ( lang==='zh' && resp.message === 'loginName has already existed' ) {
+              text = '手机/邮箱已被注册'
+            }
+
+            this.$store.commit('showDialog', { text:text || resp.message })
+            return;
 
             if (this.sign==='up' ) {
               if (resp.message==='Account has already existed'||resp.message==='loginName has already existed') {
