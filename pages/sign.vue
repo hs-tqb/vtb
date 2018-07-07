@@ -1,10 +1,19 @@
-<style>
-.roundEnd { display:flex; align-items:center; justify-content:center; height:100px; min-height:100px; font-size:16px; color:#999; background:#efefef; border-radius:5px; }
+<style lang="less">
+#page-sign {
+  opacity:0; transition-duration:300ms;
+  &.loaded { opacity:1; }
+}
+.roundEnd { 
+  display:flex; align-items:center; justify-content:center; 
+  margin:25px 0; height:96px; min-height:96px; 
+  font-size:16px; color:#999; 
+  background:#efefef; border-radius:5px; 
+}
 
 </style>
 
 <template>
-  <div id="page-sign" class="page-container text-center">
+  <div id="page-sign" class="page-container text-center" :class="loaded?'loaded':''">
     <img id="logo" src="~/assets/img/logo.png" alt="">
     <h1>{{lang.slogan}}</h1>
     <h2>{{lang.intro}}</h2>
@@ -52,8 +61,9 @@ export default {
   },
   data() {
     return {
-      // 语言
+      loaded:false,
       activityIsUnderway:false,
+      // 语言
       text: {
         en  : {
           slogan:'VTB—Self-governing V2X network based on blockchain',
@@ -290,6 +300,15 @@ export default {
     // this.initCaptcha();
     this.user = window.localStorage.getItem('user') || ''
     this.wallet = window.localStorage.getItem('wallet') || ''
+
+    $.ajax({
+      url:host+'/vtb/customer/check',
+      success:(resp)=>{
+        this.activityIsUnderway = !!resp.state
+        this.loaded = true;
+      }
+    })
+
   }
 }
 </script>
