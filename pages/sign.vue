@@ -261,6 +261,8 @@ export default {
         success:(resp)=>{
           // 已存在自动登录
           if ( resp.state === 0 ) {
+              return this.$store.commit('showDialog', { text:resp.message })
+
             if (this.sign==='up' ) {
               if (resp.message==='Account has already existed'||resp.message==='loginName has already existed') {
                 this.sign='in'
@@ -281,10 +283,10 @@ export default {
           }
 
           let message = this.sign=='up'&&!this.autoLogin? this.lang.validate.register.success: this.lang.validate.login.success
-          if ( this.autoLogin ) {
-            this.sign='up'
-            this.autoLogin=false
-          }
+          // if ( this.autoLogin ) {
+          //   this.sign='up'
+          //   this.autoLogin=false
+          // }
 
           let data = resp.data
           this.$store.commit('showDialog', { text: message })
@@ -305,10 +307,10 @@ export default {
       url:host+'/vtb/customer/check',
       success:(resp)=>{
         this.activityIsUnderway = !!resp.state
+        console.log(`---------------${this.activityIsUnderway}---------------`)
         this.loaded = true;
       }
     })
-
   }
 }
 </script>
