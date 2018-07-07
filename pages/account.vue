@@ -67,6 +67,7 @@
     #page-account #footer ul {
         width:350px;
     }
+    #page-account #balance .inp-group .btn { width:160px; }
 }
 </style>
 
@@ -349,8 +350,10 @@ export default {
               } else {
                 this.$store.commit('showDialog', {text:resp.message})
               }
+              button.disabled = false;
               return 
             }
+            this.vfCodeCountdown();
             this.$store.commit('showDialog', {text:this.lang.vfCode.success})
 
           },
@@ -360,7 +363,7 @@ export default {
         });
       // ..
       button.disabled = true;
-      this.vfCodeCountdown();
+      // this.vfCodeCountdown();
     },
     resetVfCodeCountdown() {
       let button = this.vfCodeButton;
