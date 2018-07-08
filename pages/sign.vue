@@ -74,7 +74,7 @@ export default {
             wallet:'ERC20 address'
           },
           vfNotice:'Please verify the voice code to withdraw the VTB',
-          award:'Login and invite your friend，You will receive another 2 VTB tokens',
+          award:'After signed up, you will gain 2 VTB/friend bounty when you invite friends to sign up this airdrop. The max bounty is 100 VTB.',
           btn  : {
             register:'Sign up',
             login:'Login',
@@ -107,13 +107,13 @@ export default {
         zh  : {
           slogan:'基于区块链的自治V2X网络',
           intro :'参与空投活动领取 5 枚VTB通证',
-          roundEnd:'本轮空投已经结束，感谢支持！',
+          roundEnd:'本轮空投已经结束，感谢支持。',
           placeholder:{
             user:'电话号码/邮箱',
             wallet:'ERC20 钱包地址'
           },
           vfNotice:'提币需要接收语音验证码',
-          award:'登录后再邀请朋友获得2枚VTB',
+          award:'注册后再邀请朋友获得2枚VTB',
           btn  :{
             register:'提交',
             login:'登录'

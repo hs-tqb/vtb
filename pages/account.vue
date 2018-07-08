@@ -240,7 +240,7 @@ export default {
             success:'如果成功，弹框提示。提交成功，我们将在3周内打币到您的钱包，请注意查收。',
             failure:'提币失败!'
           },
-          verifyNote:'已使用邮箱注册的朋友，请添加手机号接受语音验证码',
+          verifyNote:'已使用邮箱注册的朋友，请添加手机号接收语音验证码。',
           vfCodeButtonText:'语音验证码',
           community:{
             title:'欢迎加入项目社区交流',
