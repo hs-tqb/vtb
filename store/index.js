@@ -14,7 +14,7 @@ const store = () => new Vuex.Store({
     dialog: {
       show:false,
       text:'',
-      delay:2000,
+      delay:3000,
       timer:-1,
     }
   },

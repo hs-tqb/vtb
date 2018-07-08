@@ -36,9 +36,9 @@
       //   // margin:0;
       //   input { width:70px; }
       // }
-      .btn { 
-        padding:0 10px; width:120px; height:@hei; line-height:@hei; 
-        white-space:nowrap; font-size:12px; 
+      .btn {
+        padding:0 10px; width:120px; height:@hei; line-height:@hei;
+        white-space:nowrap; font-size:12px;
         border-top-left-radius:0;
         border-bottom-left-radius:0;
       }
@@ -52,8 +52,8 @@
     }
   }
   .flex-space { flex:1; }
-  #footer { 
-    // display:flex; flex-direction:row; justify-content:space-around; 
+  #footer {
+    // display:flex; flex-direction:row; justify-content:space-around;
     // padding-left:0; padding-right:0;
     // display:flex; flex-direction:column; justify-content:center;
     ul { list-style:none;  margin:0 auto; width:250px; }
@@ -97,7 +97,7 @@
       </div>
       <div class="inp-group">
         <input id="vfCode" type="text" :placeholder="lang.vfCode.placeholder" v-model.trim="vfCode" />
-        <a href="javascript:void(0)" class="btn warning" @click="doWithdraw">{{lang.widthdraw.button}}</a>
+        <a href="javascript:void(0)" class="btn warning" @click="doWithdraw">{{lang.withdraw.button}}</a>
       </div>
     </div>
     <div id="project" class="panel">
@@ -179,7 +179,7 @@ export default {
             timeLimit:'Please withdraw VTB after July 8, 2018.',
             success:'Require successfully!',
           },
-          widthdraw:{
+          withdraw:{
             button:'Withdraw',
             success:'Thank you for submitting. We will tansfer VTB to your wallet in the next 3 weeks. Please check.',
             failure:'Withdraw failed!'
@@ -235,7 +235,7 @@ export default {
             timeLimit:'请在本次空投结束后（2018-7-8以后）提币。',
             success:'请求发送成功!'
           },
-          widthdraw:{
+          withdraw:{
             button:'提币',
             success:'如果成功，弹框提示。提交成功，我们将在3周内打币到您的钱包，请注意查收。',
             failure:'提币失败!'
@@ -351,7 +351,7 @@ export default {
                 this.$store.commit('showDialog', {text:resp.message})
               }
               button.disabled = false;
-              return 
+              return
             }
             this.vfCodeCountdown();
             this.$store.commit('showDialog', {text:this.lang.vfCode.success})
@@ -394,7 +394,7 @@ export default {
       }
       if ( error ) {
         this.$store.commit('showDialog', {text:error})
-        return 
+        return
       }
       $.ajax({
         url: host+'/vtb/customer/bindMobile',
@@ -411,9 +411,9 @@ export default {
             // } else {
             // }
             this.$store.commit('showDialog', {text:resp.message})
-            return 
+            return
           }
-          this.$store.commit('showDialog', {text:this.lang.widthdraw.success})
+          this.$store.commit('showDialog', {text:this.lang.withdraw.success, delay:5000})
         },
         error: ()=>{
           this.resetVfCodeCountdown();

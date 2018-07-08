@@ -2,12 +2,13 @@
 #page-sign {
   opacity:0; transition-duration:300ms;
   &.loaded { opacity:1; }
+  padding-bottom:20px;
 }
-.roundEnd { 
-  display:flex; align-items:center; justify-content:center; 
-  margin:25px 0; height:96px; min-height:96px; 
-  font-size:16px; color:#999; 
-  background:#efefef; border-radius:5px; 
+.roundEnd {
+  display:flex; align-items:center; justify-content:center;
+  margin:25px 0; height:96px; min-height:96px;
+  font-size:16px; color:#999;
+  background:#efefef; border-radius:5px;
 }
 
 </style>
@@ -32,17 +33,17 @@
       <a href="javascript:void(0);" class="btn primary block" :disabled="!activityIsUnderway" @click="doVerify">
         {{lang.btn.register}}
       </a>
-      <p class="sign" @click="login">
+      <!--<p class="sign" @click="login">
         {{lang.notes.login}}
-      </p>
+      </p>-->
     </template>
     <template v-else>
       <a href="javascript:void(0);" class="btn primary block" :disabled="!activityIsUnderway" @click="doVerify">
         {{autoLogin?lang.btn.register:lang.btn.login}}
       </a>
-      <p class="sign" @click="register">
+      <!--<p class="sign" @click="register">
         {{autoLogin?lang.notes.register:lang.notes.register}}
-      </p>
+      </p>-->
     </template>
     <div class="gap"></div>
   </div>
@@ -54,7 +55,8 @@ let host = 'http://47.89.11.105:8091'
 let host2 = 'http://localhost:9977'
 export default {
   asyncData({query}) {
-    return { query, sign:query.sign||'' }
+    // return { query, sign:query.sign||'' }
+    return { query, sign:'in' }
   },
   head: {
     script:[{src:'/js/gt.js'}]
@@ -230,13 +232,13 @@ export default {
       let error  = '';
       if ( !this.user ) {
         error = this.lang.validate.user.empty
-      } 
+      }
       // else if ( !/^(\+?\d{1,3} *)?\d+([\- ]\d+)*$/.test(this.user) ) {
-      else if ( 
+      else if (
         !/^(\+?\d{1,3} *)?\d+([\- ]\d+)*$/.test(this.user) &&
         !/^[a-zA-Z0-9\u4e00-\u9fa5]+([\.\_\-]?[a-zA-Z0-9\u4e00-\u9fa5])+@([a-zA-Z0-9]+[\.\-])+[a-zA-Z0-9]+$/.test(this.user) ) {
         error = this.lang.validate.user.error;
-      } 
+      }
       else if ( !this.wallet ) {
         error = this.lang.validate.wallet.empty;
       } else if ( !/^0x[0-9a-zA-Z]{40}$/.test(this.wallet) || !parseInt(this.wallet,16) ) {
@@ -270,7 +272,7 @@ export default {
 			return this.$store.commit('showDialog', {
 			text:this.lang.roundEnd
 			})
-		} 
+		}
       $.ajax({
         url:host + (this.sign=='up'?'/vtb/customer/register':'/vtb/customer/login'),
         data:{loginName:this.user, account:this.wallet, from:this.query.from},
@@ -282,7 +284,7 @@ export default {
 
             if ( lang==='zh' && resp.message === 'Account has already existed' ) {
               text = '钱包已被注册'
-            } 
+            }
             if ( lang==='zh' && resp.message === 'loginName has already existed' ) {
               text = '手机/邮箱已被注册'
             }
