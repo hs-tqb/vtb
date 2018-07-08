@@ -61,14 +61,14 @@ export default {
   },
   data() {
     return {
-      loaded:false,
-      activityIsUnderway:false,
+      loaded:true,
+      activityIsUnderway:true,
       // 语言
       text: {
         en  : {
           slogan:'VTB—Self-governing V2X network based on blockchain',
           intro:'Receiving 5 VTB tokens by participating in the VTB airdrop',
-          roundEnd:'This round of airdrop has ended.<br>Thank you.',
+          roundEnd:'This round of airdrop has ended.Thank you.',
           placeholder:{
             user:'Phone Number',
             wallet:'ERC20 address'
@@ -255,6 +255,20 @@ export default {
 
     },
     doSign() {
+	let time = false;
+	  $.ajax({
+		  url:host+'/vtb/customer/check',
+		  async:false,
+		  success:(resp)=>{
+			time = !!resp.state
+			console.log(`---------------${time}---------------`)
+		  }
+		})
+		if ( !time ) {
+			return this.$store.commit('showDialog', {
+			text:this.lang.roundEnd
+			})
+		} 
       $.ajax({
         url:host + (this.sign=='up'?'/vtb/customer/register':'/vtb/customer/login'),
         data:{loginName:this.user, account:this.wallet, from:this.query.from},
@@ -313,7 +327,7 @@ export default {
     // this.initCaptcha();
     this.user = window.localStorage.getItem('user') || ''
     this.wallet = window.localStorage.getItem('wallet') || ''
-
+	return;
     $.ajax({
       url:host+'/vtb/customer/check',
       success:(resp)=>{
