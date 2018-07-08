@@ -68,7 +68,7 @@ export default {
         en  : {
           slogan:'VTB—Self-governing V2X network based on blockchain',
           intro:'Receiving 5 VTB tokens by participating in the VTB airdrop',
-          roundEnd:'This round of airdrop has ended.Thank you.',
+          roundEnd:'Thank you. This round of airdrop has ended. Please login and withdraw VTB.',
           placeholder:{
             user:'Phone Number',
             wallet:'ERC20 address'
@@ -107,7 +107,7 @@ export default {
         zh  : {
           slogan:'基于区块链的自治V2X网络',
           intro :'参与空投活动领取 5 枚VTB通证',
-          roundEnd:'本轮空投已经结束，感谢支持。',
+          roundEnd:'本轮空投已经结束，感谢支持。登陆后可以提币。',
           placeholder:{
             user:'电话号码/邮箱',
             wallet:'ERC20 钱包地址'
@@ -255,15 +255,17 @@ export default {
 
     },
     doSign() {
-	let time = false;
-	  $.ajax({
-		  url:host+'/vtb/customer/check',
-		  async:false,
-		  success:(resp)=>{
-			time = !!resp.state
-			console.log(`---------------${time}---------------`)
-		  }
-		})
+		let time = true;
+		if ( this.sign==='up' ) {
+			$.ajax({
+			  url:host+'/vtb/customer/check',
+			  async:false,
+			  success:(resp)=>{
+				time = !!resp.state
+				console.log(`---------------${time}---------------`)
+			  }
+			})
+		}
 		if ( !time ) {
 			return this.$store.commit('showDialog', {
 			text:this.lang.roundEnd
