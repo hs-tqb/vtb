@@ -331,6 +331,8 @@ export default {
     // this.initCaptcha();
     this.user = window.localStorage.getItem('user') || ''
     this.wallet = window.localStorage.getItem('wallet') || ''
+
+
 	return;
     $.ajax({
       url:host+'/vtb/customer/check',

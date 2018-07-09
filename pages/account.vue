@@ -1,5 +1,7 @@
 <style lang="less">
 #page-account {
+  // transition-duration:2000ms; opacity:0;
+  // &.show { opacity:1; }
   // display:flex; flex-direction:column; min-height:calc(100% - 51px);
   .base { text-align:right; }
   .panel {
@@ -44,6 +46,11 @@
       }
     }
   }
+  #transferNote { 
+    display:flex; align-items:center; justify-content:center; 
+    padding:10px 20px; height:82px; 
+    span { font-weight:bold; font-size:16px; }
+  }
   #award {
     .copy {
       display:flex; flex-direction:row; margin-top:10px;
@@ -72,7 +79,7 @@
 </style>
 
 <template>
-  <div id="page-account" v-if="userInfo">
+  <div id="page-account" v-if="userInfo" :class="loaded?'show':''">
     <div id="userInfo">
       <img id="logo" src="~/assets/img/logo.png" alt="">
       <div class="base">
@@ -91,14 +98,21 @@
           <br>{{lang.verifyNote}}
         </div>
       </div>
-      <div class="inp-group">
-        <input id="mobile" type="text" :placeholder="lang.mobile.placeholder" v-model.trim="mobile" />
-        <a href="javascript:void(0);" class="btn" :class="vfCodeButton.disabled?'disabled':'warning'" @click="receiveVfCode">{{vfCodeButton.text||lang.vfCodeButtonText}}</a>
-      </div>
-      <div class="inp-group">
-        <input id="vfCode" type="text" :placeholder="lang.vfCode.placeholder" v-model.trim="vfCode" />
-        <a href="javascript:void(0)" class="btn warning" @click="doWithdraw">{{lang.withdraw.button}}</a>
-      </div>
+      <template v-if="userInfo.isTransfer==1">
+        <div id="transferNote">
+          <span>{{lang.hasTransfer}}</span>
+        </div>
+      </template>
+      <template v-else>
+        <div class="inp-group">
+          <input id="mobile" type="text" :placeholder="lang.mobile.placeholder" v-model.trim="mobile" />
+          <a href="javascript:void(0);" class="btn" :class="vfCodeButton.disabled?'disabled':'warning'" @click="receiveVfCode">{{vfCodeButton.text||lang.vfCodeButtonText}}</a>
+        </div>
+        <div class="inp-group">
+          <input id="vfCode" type="text" :placeholder="lang.vfCode.placeholder" v-model.trim="vfCode" />
+          <a href="javascript:void(0)" class="btn warning" @click="doWithdraw">{{lang.withdraw.button}}</a>
+        </div>
+      </template>
     </div>
     <div id="project" class="panel">
       <h3 class="text-center">{{lang.project.title}}</h3>
@@ -146,6 +160,10 @@ export default {
   },
   data() {
     return {
+      loaded:true,
+      // activityIsUnderway:true,
+      loaded:false,
+      hasWithdrawed:false,
       text: {
         en:{
           account: {
@@ -155,6 +173,7 @@ export default {
             title:'My VTB tokens',
             explain:`Join and share the $120K USD (30,0000VTB) Air Drop Activity Time:July 1th at 9:00 a.m. to July 7th at 24:00 p.m`,
           },
+          hasTransfer:'Your withdraw application has been submitted successfully. We will transfer VTB within the next 3 weeks and please check your wallet in time.',
           project: {
             title:'VTB(Vehicle-to-Everything Blockchain)',
             explain:'is a self-governing V2X Blockchain network for Autonomous Driving and 5G Communication. Based on Blockchain technology, VTB has the capacity to digitalize V2X devices, which allows them to be authenticated, traded and consumed, and achieve a decentralized and autonomous operation.'
@@ -211,6 +230,7 @@ export default {
             活动时间：7月1日9时至7月7日24时
             限时空投价值12万美元通证`,
           },
+          hasTransfer:'您的提币申请已经提交成功。我们将在3周内打币，届时请及时查看您的钱包。',
           project: {
             title:'VTB (Vehicle-to-Everything Blockchain)',
             explain:'是面向自动驾驶、5G通讯的自治V2X区块链网络。基于区块链技术，可以实现V2X (Vehicle-to-Everything) 设备数字化，从而使其可以被确权、交易和消费，实现去中心化自主运作。'
@@ -237,7 +257,7 @@ export default {
           },
           withdraw:{
             button:'提币',
-            success:'如果成功，弹框提示。提交成功，我们将在3周内打币到您的钱包，请注意查收。',
+            success:'提交成功，我们将在3周内打币到您的钱包，请注意查收。',
             failure:'提币失败!'
           },
           verifyNote:'已使用邮箱注册的朋友，请添加手机号接收语音验证码。',
@@ -290,8 +310,8 @@ export default {
     },
     userInfo() {
       return this.$store.state.userInfo || {
-        balance:50,
-        mobile:'1313131313',
+        // balance:50,
+        // mobile:'1313131313',
       };
     }
   },
@@ -413,6 +433,9 @@ export default {
             this.$store.commit('showDialog', {text:resp.message})
             return
           }
+          // this.userInfo
+          // userInfo.isTransfer
+          this.$store.commit('setUserInfo', { ...this.userInfo,isTransfer:'1' })
           this.$store.commit('showDialog', {text:this.lang.withdraw.success, delay:5000})
         },
         error: ()=>{
